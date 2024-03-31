@@ -22,17 +22,6 @@ class HttpClient
         return $response->getBody()->getContents();
     }
 
-    public function post(string $url, array $data = [], bool $decode = true)
-    {
-        $response = $this->sendRequest('POST', $url, ['json' => $data]);
-
-        if ($decode) {
-            return json_decode($response->getBody(), true);
-        }
-
-        return $response->getBody()->getContents();
-    }
-
     private function sendRequest(string $method, string $url, array $options = [])
     {
         return $this->guzzleClient->request($method, $url, $options);

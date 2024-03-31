@@ -2,8 +2,9 @@
 
 namespace App\Services\CountryService;
 
-use App\Models\Country;
-use App\Services\Contracts\CountryApiClient;
+use App\Services\CountryApiClient\Contracts\CountryApiClient;
+use App\Services\CountryApiClient\DTO\CountryDTO;
+use Database\Factories\CountryFactory;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 
@@ -25,17 +26,13 @@ class CountryService
 
         $countries = collect([]);
 
-        foreach ($result as $countryData) {
-            if (in_array('name', $fields)) {
-                $countryName = $countryData['name']['common'];
+        foreach ($result as $countryDTO) {
+            if ($countryDTO instanceof CountryDTO == false) {
+                throw new \Exception('Invalid country data');
             }
 
-            if (in_array('flag', $fields)) {
-                $countryFlag = $countryData['flags']['svg'];
-            }
+            $country = CountryFactory::createFromDTO($countryDTO);
 
-            $country = new Country($countryName ?? null, $countryFlag ?? null);
-            
             $countries->push($country);
         }
 
