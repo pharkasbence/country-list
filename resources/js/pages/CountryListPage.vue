@@ -11,6 +11,10 @@
             <country-list-item :name="country.name" :flag-url="country.flag" />
         </div>
     </div>
+
+    <div v-if="isLoading" class="text-gray-400 text-lg text-center p-4 w-full">
+        Loading...
+    </div>
 </template>
 
 <script setup>
