@@ -18,12 +18,12 @@ class CountryController extends Controller
     {
         $page = $request->get('page', 1);
         $perPage = $request->get('perPage', 10);
-        $fields = $request->get('fields');
+        $fields = $request->get('fields', 'name,flag');
 
         $countries = $this->countryService->getCountries(
             $page, 
             $perPage, 
-            $fields ? explode(',', $fields) : [],
+            explode(',', $fields),
         );
         
         return CountryResource::collection($countries);
