@@ -25,26 +25,26 @@ class RestCountryApiClient implements CountryApiClient
         ];
 
         $ttl = 60 * 60;
-        $cacheKey = 'restcountries:' . md5(json_encode($fields));
+        $cacheKey = 'restcountries:' . md5(implode(',', $fields));
 
-        // cache the API response separately because it does not depend on 
-        // page and perPage values since the it does not support pagination
         $response = Cache::remember($cacheKey, $ttl, function () use ($queryParams) {
+            // cache the API response because it does not depend on 
+            // page and perPage values since it does not support pagination
             return $this->httpClient->get($this->apiBaseUrl . '/all', $queryParams);
         });
    
         $paginatedResponse = array_slice($response, ($page - 1) * $perPage, $perPage);
         
-        $countryDTOs = [];
-        foreach ($paginatedResponse as $countryData) {
+        $countryDTOList = [];
+        foreach ($paginatedResponse as $item) {
             $countryDTO = CountryDTO::fromArray(
-                $this->getCountryData($countryData, $fields)
+                $this->getCountryData($item, $fields)
             );
 
-            array_push($countryDTOs, $countryDTO);
+            array_push($countryDTOList, $countryDTO);
         }
-    
-        return new CountryDTOList(...$countryDTOs);
+
+        return new CountryDTOList(...$countryDTOList);
     }
 
     private function getCountryData(array $rawData, array $fields): array
