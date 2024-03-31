@@ -14,6 +14,7 @@
         "vite": "^5.0"
     },
     "dependencies": {
+        "@auth0/auth0-vue": "^2.3.3",
         "@vitejs/plugin-vue": "^5.0.4",
         "@vueuse/core": "^10.9.0"
     }
