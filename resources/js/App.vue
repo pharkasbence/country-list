@@ -33,7 +33,7 @@
         loginWithRedirect();
     }
 
-    function onLogoutButtonClicked() {console.log(333);
+    function onLogoutButtonClicked() {
         logout({ logoutParams: { returnTo: window.location.origin } });
     }
 </script>

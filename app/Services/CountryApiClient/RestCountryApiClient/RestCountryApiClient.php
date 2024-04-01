@@ -28,8 +28,8 @@ class RestCountryApiClient implements CountryApiClient
         $cacheKey = 'restcountries:' . md5(implode(',', $fields));
 
         $response = Cache::remember($cacheKey, $ttl, function () use ($queryParams) {
-            // cache the API response because it does not depend on 
-            // page and perPage values since it does not support pagination
+            // Cache the response because it does not depend on 
+            // page and perPage values since the API does not support pagination
             return $this->httpClient->get($this->apiBaseUrl . '/all', $queryParams);
         });
    
