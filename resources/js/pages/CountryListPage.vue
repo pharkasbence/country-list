@@ -3,7 +3,11 @@
         {{ errorMessage }}
     </div>
 
-    <div v-else ref="infiniteScrollContainer" class="mt-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4 h-screen overflow-y-scroll">
+    <div 
+        v-else 
+        ref="infiniteScrollContainer" 
+        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4 h-[calc(100vh-75px)] overflow-y-scroll"
+    >
         <div 
             v-for="country in countries" 
             :key="'country_ ' + country.name"

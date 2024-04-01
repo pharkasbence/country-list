@@ -30,6 +30,7 @@ export default defineConfig({
     resolve: {
         alias: {
             vue: 'vue/dist/vue.esm-bundler.js',
+            '@components': '/resources/js/components',
             '@pages': '/resources/js/pages',
             '@services': '/resources/js/services',
         },
